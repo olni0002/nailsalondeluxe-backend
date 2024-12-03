@@ -14,43 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dk.nailsalondeluxe.backend.model.Category;
-import dk.nailsalondeluxe.backend.repository.CategoryRepository;
+import dk.nailsalondeluxe.backend.service.CategoryService;
 
 @RestController
 @RequestMapping("/api/category")
 @CrossOrigin("*")
 public class CategoryRestController {
     
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
-    public CategoryRestController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryRestController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryService.getAllCategories();
     }
 
     @GetMapping("/{id}")
     public Optional<Category> getCategory(@PathVariable int id) {
-        return categoryRepository.findById(id);
+        return categoryService.getCategory(id);
     }
 
     @PostMapping
     public void createCategory(@RequestBody Category category) {
-        categoryRepository.save(category);
+        categoryService.createCategory(category);
     }
 
     @PutMapping("/{id}")
     public void updateCategory(@RequestBody Category category, @PathVariable int id) {
-        category.setId(id);
-        categoryRepository.save(category);
+        categoryService.updateCategory(category, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable int id) {
-        categoryRepository.deleteById(id);
+        categoryService.deleteCategory(id);
     }
 
 }

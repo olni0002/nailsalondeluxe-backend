@@ -14,43 +14,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dk.nailsalondeluxe.backend.model.Customer;
-import dk.nailsalondeluxe.backend.repository.CustomerRepository;
+import dk.nailsalondeluxe.backend.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customer")
 @CrossOrigin("*")
 public class CustomerRestController {
     
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
-    public CustomerRestController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerRestController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping
-    public List<Customer> getAllCategories() {
-        return customerRepository.findAll();
+    public List<Customer> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
     public Optional<Customer> getCustomer(@PathVariable int id) {
-        return customerRepository.findById(id);
+        return customerService.getCustomer(id);
     }
 
     @PostMapping
     public void createCustomer(@RequestBody Customer customer) {
-        customerRepository.save(customer);
+        customerService.createCustomer(customer);
     }
 
     @PutMapping("/{id}")
     public void updateCustomer(@RequestBody Customer customer, @PathVariable int id) {
-        customer.setId(id);
-        customerRepository.save(customer);
+        customerService.updateCustomer(customer, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable int id) {
-        customerRepository.deleteById(id);
+        customerService.deleteCustomer(id);
     }
 
 }

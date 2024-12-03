@@ -14,42 +14,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dk.nailsalondeluxe.backend.model.Treater;
-import dk.nailsalondeluxe.backend.repository.TreaterRepository;
+import dk.nailsalondeluxe.backend.service.TreaterService;
 
 @RestController
 @RequestMapping("/api/treater")
 @CrossOrigin("*")
 public class TreaterRestController {
     
-    private TreaterRepository treaterRepository;
+    private TreaterService treaterService;
 
-    public TreaterRestController(TreaterRepository treaterRepository) {
-        this.treaterRepository = treaterRepository;
+    public TreaterRestController(TreaterService treaterService) {
+        this.treaterService = treaterService;
     }
 
     @GetMapping
-    public List<Treater> getAllCategories() {
-        return treaterRepository.findAll();
+    public List<Treater> getAllTreaters() {
+        return treaterService.getAllTreaters();
     }
 
     @GetMapping("/{id}")
     public Optional<Treater> getTreater(@PathVariable int id) {
-        return treaterRepository.findById(id);
+        return treaterService.getTreater(id);
     }
 
     @PostMapping
     public void createTreater(@RequestBody Treater treater) {
-        treaterRepository.save(treater);
+        treaterService.createTreater(treater);
     }
 
     @PutMapping("/{id}")
     public void updateTreater(@RequestBody Treater treater, @PathVariable int id) {
-        treater.setId(id);
-        treaterRepository.save(treater);
+        treaterService.updateTreater(treater, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTreater(@PathVariable int id) {
-        treaterRepository.deleteById(id);
+        treaterService.deleteTreater(id);
     }
 }
