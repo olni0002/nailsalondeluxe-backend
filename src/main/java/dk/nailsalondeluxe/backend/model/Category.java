@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,4 +28,8 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Treatment> treatments;
+
+    @OneToOne(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonBackReference(value = "categoryImage")
+    private CategoryImage categoryImage;
 }

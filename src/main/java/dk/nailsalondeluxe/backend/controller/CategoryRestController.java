@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dk.nailsalondeluxe.backend.model.Category;
+import dk.nailsalondeluxe.backend.model.CategoryImage;
 import dk.nailsalondeluxe.backend.service.CategoryService;
 
 @RestController
@@ -52,4 +53,23 @@ public class CategoryRestController {
         categoryService.deleteCategory(id);
     }
 
+    @GetMapping("/{id}/image")
+    public Optional<CategoryImage> getImage(@PathVariable int id) {
+        return categoryService.getImage(id);
+    }
+
+    @PostMapping("/{id}/image")
+    public void createImage(@RequestBody CategoryImage categoryImage, @PathVariable int id) {
+        categoryService.createImage(categoryImage, id);
+    }
+
+    @PutMapping("/{id}/image")
+    public void updateImage(@RequestBody CategoryImage categoryImage, @PathVariable int id) {
+        categoryService.updateImage(categoryImage, id);
+    }
+
+    @DeleteMapping("/{id}/image")
+    public void deleteImage(@PathVariable int id) {
+        categoryService.deleteImage(id);
+    }
 }
