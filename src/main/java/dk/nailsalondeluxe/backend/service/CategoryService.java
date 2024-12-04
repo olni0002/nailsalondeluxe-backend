@@ -3,9 +3,7 @@ package dk.nailsalondeluxe.backend.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dk.nailsalondeluxe.backend.model.Category;
 import dk.nailsalondeluxe.backend.repository.CategoryRepository;
@@ -19,22 +17,12 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    @Transactional(readOnly = true)
     public List<Category> getAllCategories() {
-        List<Category> categories = categoryRepository.findAll();
-        
-        categories.forEach(category -> category.getTreatments().forEach(treatment -> Hibernate.initialize(treatment.getReservations())));
-
-        return categories;
+        return categoryRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Optional<Category> getCategory(int id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        
-        category.get().getTreatments().forEach(treatment -> Hibernate.initialize(treatment.getReservations()));
-        
-        return category;
+        return categoryRepository.findById(id);
     }
 
     public void createCategory(Category category) {

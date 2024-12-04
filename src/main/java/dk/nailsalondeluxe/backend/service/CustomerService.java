@@ -3,9 +3,7 @@ package dk.nailsalondeluxe.backend.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dk.nailsalondeluxe.backend.model.Customer;
 import dk.nailsalondeluxe.backend.repository.CustomerRepository;
@@ -19,22 +17,12 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    @Transactional(readOnly = true)
     public List<Customer> getAllCustomers() {
-        List<Customer> customers = customerRepository.findAll();
-
-        customers.forEach(customer -> Hibernate.initialize(customer.getReservations()));
-
-        return customers;
+        return customerRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Optional<Customer> getCustomer(int id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        
-        Hibernate.initialize(customer.get().getReservations());
-        
-        return customer;
+        return customerRepository.findById(id);
     }
 
     public void createCustomer(Customer customer) {

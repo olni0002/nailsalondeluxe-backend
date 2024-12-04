@@ -3,9 +3,7 @@ package dk.nailsalondeluxe.backend.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dk.nailsalondeluxe.backend.model.Treatment;
 import dk.nailsalondeluxe.backend.repository.TreatmentRepository;
@@ -19,22 +17,12 @@ public class TreatmentService {
         this.treatmentRepository = treatmentRepository;
     }
 
-    @Transactional(readOnly = true)
     public List<Treatment> getAllTreatments() {
-        List<Treatment> treatments = treatmentRepository.findAll();
-
-        treatments.forEach(treatment -> Hibernate.initialize(treatment.getReservations()));
-
-        return treatments;
+        return treatmentRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Optional<Treatment> getTreatment(int id) {
-        Optional<Treatment> treatment = treatmentRepository.findById(id);
-
-        Hibernate.initialize(treatment.get().getReservations());
-
-        return treatment;
+        return treatmentRepository.findById(id);
     }
 
     public void createTreatment(Treatment treatment) {

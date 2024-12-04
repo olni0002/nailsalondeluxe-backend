@@ -2,7 +2,7 @@ package dk.nailsalondeluxe.backend.model;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,6 +25,6 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Treatment> treatments;
 }
