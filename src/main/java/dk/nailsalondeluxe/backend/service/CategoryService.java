@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dk.nailsalondeluxe.backend.model.Category;
 import dk.nailsalondeluxe.backend.model.CategoryImage;
@@ -62,8 +63,8 @@ public class CategoryService {
         categoryImageRepository.save(categoryImage);
     }
 
+    @Transactional
     public void deleteImage(int id) {
-        int imageId = categoryImageRepository.findIdByCategoryId(id);
-        categoryImageRepository.deleteById(imageId);
+        categoryImageRepository.deleteByCategoryId(id);
     }
 }
