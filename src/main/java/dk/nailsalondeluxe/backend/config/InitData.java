@@ -58,11 +58,13 @@ public class InitData implements CommandLineRunner {
     private Treatment[] getTreatments(Category[] categories) {
 
         Treatment[] treatments = new Treatment[59];
-        int i = 0;
+        int index = 0;
 
-        for (int j = 0; j < treatments.length; j++) {
-            treatments[j] = new Treatment();
+        while (index < treatments.length) {
+            treatments[index] = new Treatment();
+            index++;
         }
+        index = 0;
 
         treatments[0].setName("Akryl naturlig sæt");
         treatments[0].setPrice(395);
@@ -79,8 +81,9 @@ public class InitData implements CommandLineRunner {
         treatments[4].setName("Akryl ombre/babyboom");
         treatments[4].setPrice(500);
 
-        for (; i < 5; i++) {
-            treatments[i].setCategory(categories[0]);
+        while (index < 5) {
+            treatments[index].setCategory(categories[0]);
+            index++;
         }
 
         treatments[5].setName("Akryl naturlig sæt");
@@ -98,8 +101,9 @@ public class InitData implements CommandLineRunner {
         treatments[9].setName("Akryl med ombre/babyboom");
         treatments[9].setPrice(500);
 
-        for (; i < 10; i++) {
-            treatments[i].setCategory(categories[1]);
+        while (index < 10) {
+            treatments[index].setCategory(categories[1]);
+            index++;
         }
 
         treatments[10].setName("Gele naturlig sæt");
@@ -117,8 +121,9 @@ public class InitData implements CommandLineRunner {
         treatments[14].setName("Gele ombreb/abyboom");
         treatments[14].setPrice(535);
 
-        for (; i < 15; i++) {
-            treatments[i].setCategory(categories[2]);
+        while (index < 15) {
+            treatments[index].setCategory(categories[2]);
+            index++;
         }
 
         treatments[15].setName("Gele naturlig sæt");
@@ -136,8 +141,9 @@ public class InitData implements CommandLineRunner {
         treatments[19].setName("Gele ombre/babyboom");
         treatments[19].setPrice(495);
 
-        for (; i < 20; i++) {
-            treatments[i].setCategory(categories[3]);
+        while (index < 20) {
+            treatments[index].setCategory(categories[3]);
+            index++;
         }
 
         treatments[20].setName("Reparation en af negl");
@@ -154,8 +160,9 @@ public class InitData implements CommandLineRunner {
         treatments[24].setName("Nyt sæt tillæg");
         treatments[24].setPrice(50);
 
-        for (; i < 25; i++) {
-            treatments[i].setCategory(categories[4]);
+        while (index < 25) {
+            treatments[index].setCategory(categories[4]);
+            index++;
         }
 
         treatments[25].setName("Halvt ben");
@@ -167,8 +174,9 @@ public class InitData implements CommandLineRunner {
         treatments[27].setName("Ryggen");
         treatments[27].setPrice(399);
 
-        for (; i < 28; i++) {
-            treatments[i].setCategory(categories[5]);
+        while (index < 28) {
+            treatments[index].setCategory(categories[5]);
+            index++;
         }
 
         treatments[28].setName("Dipping naturlig sæt");
@@ -186,8 +194,9 @@ public class InitData implements CommandLineRunner {
         treatments[32].setName("Dipping ombre/babyboom");
         treatments[32].setPrice(535);
 
-        for (; i < 33; i++) {
-            treatments[i].setCategory(categories[6]);
+        while (index < 33) {
+            treatments[index].setCategory(categories[6]);
+            index++;
         }
 
         treatments[33].setName("Dipping naturlig sæt");
@@ -205,8 +214,9 @@ public class InitData implements CommandLineRunner {
         treatments[37].setName("Dipping ombre/babyboom");
         treatments[37].setPrice(495);
 
-        for (; i < 38; i++) {
-            treatments[i].setCategory(categories[7]);
+        while (index < 38) {
+            treatments[index].setCategory(categories[7]);
+            index++;
         }
 
         treatments[38].setName("Manicure klassisk");
@@ -239,8 +249,9 @@ public class InitData implements CommandLineRunner {
         treatments[47].setName("Fransk polering");
         treatments[47].setPrice(120);
 
-        for (; i < 48; i++) {
-            treatments[i].setCategory(categories[8]);
+        while (index < 48) {
+            treatments[index].setCategory(categories[8]);
+            index++;
         }
 
         treatments[48].setName("Design på alle neglene");
@@ -252,8 +263,9 @@ public class InitData implements CommandLineRunner {
         treatments[50].setName("Sten");
         treatments[50].setPrice(70);
 
-        for (; i < 51; i++) {
-            treatments[i].setCategory(categories[9]);
+        while (index < 51) {
+            treatments[index].setCategory(categories[9]);
+            index++;
         }
 
         treatments[51].setName("Sinlge klassisk nyt sæt");
@@ -271,8 +283,9 @@ public class InitData implements CommandLineRunner {
         treatments[55].setName("Lash Lift colagen");
         treatments[55].setPrice(350);
 
-        for (; i < 56; i++) {
-            treatments[i].setCategory(categories[10]);
+        while (index < 56) {
+            treatments[index].setCategory(categories[10]);
+            index++;
         }
 
         treatments[56].setName("Retning af bryn");
@@ -284,8 +297,9 @@ public class InitData implements CommandLineRunner {
         treatments[58].setName("Farve og retning af bryn");
         treatments[58].setPrice(180);
 
-        for (; i < 59; i++) {
-            treatments[i].setCategory(categories[11]);
+        while (index < treatments.length) {
+            treatments[index].setCategory(categories[11]);
+            index++;
         }
 
         return treatments;
