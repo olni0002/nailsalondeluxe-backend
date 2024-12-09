@@ -1,12 +1,20 @@
 package dk.nailsalondeluxe.backend.config;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.MediaTypeFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 
 import dk.nailsalondeluxe.backend.model.Category;
+import dk.nailsalondeluxe.backend.model.CategoryImage;
 import dk.nailsalondeluxe.backend.model.Treatment;
+import dk.nailsalondeluxe.backend.repository.CategoryImageRepository;
 import dk.nailsalondeluxe.backend.repository.CategoryRepository;
 import dk.nailsalondeluxe.backend.repository.TreatmentRepository;
 
@@ -15,10 +23,15 @@ public class InitData implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
     private TreatmentRepository treatmentRepository;
+    private CategoryImageRepository categoryImageRepository;
 
-    public InitData(CategoryRepository categoryRepository, TreatmentRepository treatmentRepository) {
+    public InitData(CategoryRepository categoryRepository,
+                    TreatmentRepository treatmentRepository,
+                    CategoryImageRepository categoryImageRepository) {
+ 
         this.categoryRepository = categoryRepository;
         this.treatmentRepository = treatmentRepository;
+        this.categoryImageRepository = categoryImageRepository;
     }
 
     @Override
@@ -29,6 +42,9 @@ public class InitData implements CommandLineRunner {
 
         Treatment[] treatments = getTreatments(categories);
         treatmentRepository.saveAll(Arrays.asList(treatments));
+
+        CategoryImage[] images = getCategoryImages(categories);
+        categoryImageRepository.saveAll(Arrays.asList(images));
     }
     
     private Category[] getCategories() {
@@ -305,4 +321,46 @@ public class InitData implements CommandLineRunner {
         return treatments;
     }
     
+    private CategoryImage[] getCategoryImages(Category[] categories) throws FileNotFoundException, IOException {
+        
+        CategoryImage[] images = new CategoryImage[4];
+
+        for (int i = 0; i < images.length; i++) {
+            images[i] = new CategoryImage();
+        }
+
+        String file0Name = "kunstige negle.jpg";
+        File file0 = ResourceUtils.getFile("classpath:images/%s".formatted(file0Name));
+        images[0].setFileName(file0Name);
+        images[0].setMimeType(MediaTypeFactory.getMediaType(file0Name).get().toString());
+        images[0].setLastModified(file0.lastModified());
+        images[0].setImageData(FileUtils.readFileToByteArray(file0));
+        images[0].setCategory(categories[0]);
+
+        String file1Name = "påfyldning naturlig sæt.jpg";
+        File file1 = ResourceUtils.getFile("classpath:images/%s".formatted(file1Name));
+        images[1].setFileName(file1Name);
+        images[1].setMimeType(MediaTypeFactory.getMediaType(file1Name).get().toString());
+        images[1].setLastModified(file1.lastModified());
+        images[1].setImageData(FileUtils.readFileToByteArray(file1));
+        images[1].setCategory(categories[1]);
+
+        String file2Name = "negle.jpg";
+        File file2 = ResourceUtils.getFile("classpath:images/%s".formatted(file2Name));
+        images[2].setFileName(file2Name);
+        images[2].setMimeType(MediaTypeFactory.getMediaType(file2Name).get().toString());
+        images[2].setLastModified(file2.lastModified());
+        images[2].setImageData(FileUtils.readFileToByteArray(file2));
+        images[2].setCategory(categories[2]);
+
+        String file3Name = "dipping powder negle.jpg";
+        File file3 = ResourceUtils.getFile("classpath:images/%s".formatted(file3Name));
+        images[3].setFileName(file3Name);
+        images[3].setMimeType(MediaTypeFactory.getMediaType(file3Name).get().toString());
+        images[3].setLastModified(file3.lastModified());
+        images[3].setImageData(FileUtils.readFileToByteArray(file3));
+        images[3].setCategory(categories[6]);
+
+        return images;
+    }
 }
