@@ -4,22 +4,28 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dk.nailsalondeluxe.backend.model.Category;
 import dk.nailsalondeluxe.backend.model.CategoryImage;
+import dk.nailsalondeluxe.backend.model.Treatment;
 import dk.nailsalondeluxe.backend.repository.CategoryImageRepository;
 import dk.nailsalondeluxe.backend.repository.CategoryRepository;
+import dk.nailsalondeluxe.backend.repository.TreatmentRepository;
 
 @Service
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
     private CategoryImageRepository categoryImageRepository;
+    private TreatmentRepository treatmentRepository;
 
-    public CategoryService(CategoryRepository categoryRepository, CategoryImageRepository categoryImageRepository) {
+    public CategoryService(CategoryRepository categoryRepository,
+                           CategoryImageRepository categoryImageRepository,
+                           TreatmentRepository treatmentRepository) {
+
         this.categoryRepository = categoryRepository;
         this.categoryImageRepository = categoryImageRepository;
+        this.treatmentRepository = treatmentRepository;
     }
 
     public List<Category> getAllCategories() {
@@ -47,24 +53,7 @@ public class CategoryService {
         return categoryImageRepository.findByCategoryId(id);
     }
 
-    public void createImage(CategoryImage categoryImage, int id) {
-        Category category = new Category();
-        category.setId(id);
-
-        categoryImage.setCategory(category);
-
-        categoryImageRepository.save(categoryImage);
-    }
-
-    public void updateImage(CategoryImage categoryImage, int id) {
-        int imageId = categoryImageRepository.findIdByCategoryId(id);
-        categoryImage.setId(imageId);
-
-        categoryImageRepository.save(categoryImage);
-    }
-
-    @Transactional
-    public void deleteImage(int id) {
-        categoryImageRepository.deleteByCategoryId(id);
+    public List<Treatment> getTreatments(int id) {
+        return treatmentRepository.findByCategoryId(id);
     }
 }
