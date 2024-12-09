@@ -24,11 +24,14 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Category[] categories = addCategories();
-        addTreatments(categories);
+        Category[] categories = getCategories();
+        categoryRepository.saveAll(Arrays.asList(categories));
+
+        Treatment[] treatments = getTreatments(categories);
+        treatmentRepository.saveAll(Arrays.asList(treatments));
     }
     
-    private Category[] addCategories() {
+    private Category[] getCategories() {
 
         Category[] categories = new Category[12];
 
@@ -49,11 +52,10 @@ public class InitData implements CommandLineRunner {
         categories[10].setName("EYELASHES");
         categories[11].setName("DIVERSE");
 
-        categoryRepository.saveAll(Arrays.asList(categories));
         return categories;
     }
 
-    private void addTreatments(Category[] categories) {
+    private Treatment[] getTreatments(Category[] categories) {
 
         Treatment[] treatments = new Treatment[59];
         int i = 0;
@@ -286,7 +288,7 @@ public class InitData implements CommandLineRunner {
             treatments[i].setCategory(categories[11]);
         }
 
-        treatmentRepository.saveAll(Arrays.asList(treatments));
+        return treatments;
     }
     
 }
