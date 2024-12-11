@@ -49,9 +49,10 @@ public class InitData implements CommandLineRunner {
     
     private Category[] getCategories() {
 
-        Category[] categories = new Category[12];
+        int categoryAmount = 12;
+        Category[] categories = new Category[categoryAmount];
 
-        for (int i = 0; i < categories.length; i++) {
+        for (int i = 0; i < categoryAmount; i++) {
             categories[i] = new Category();
         }
 
@@ -73,10 +74,11 @@ public class InitData implements CommandLineRunner {
 
     private Treatment[] getTreatments(Category[] categories) {
 
-        Treatment[] treatments = new Treatment[59];
-        int index = 0;
+        int treatmentAmount = 59;
+        Treatment[] treatments = new Treatment[treatmentAmount];
 
-        while (index < treatments.length) {
+        int index = 0;
+        while (index < treatmentAmount) {
             treatments[index] = new Treatment();
             index++;
         }
@@ -313,7 +315,7 @@ public class InitData implements CommandLineRunner {
         treatments[58].setName("Farve og retning af bryn");
         treatments[58].setPrice(180);
 
-        while (index < treatments.length) {
+        while (index < treatmentAmount) {
             treatments[index].setCategory(categories[11]);
             index++;
         }
@@ -323,9 +325,10 @@ public class InitData implements CommandLineRunner {
     
     private CategoryImage[] getCategoryImages(Category[] categories) throws FileNotFoundException, IOException {
         
-        CategoryImage[] images = new CategoryImage[4];
+        int imageAmount = 4;
+        CategoryImage[] images = new CategoryImage[imageAmount];
 
-        for (int i = 0; i < images.length; i++) {
+        for (int i = 0; i < imageAmount; i++) {
             images[i] = new CategoryImage();
         }
 
