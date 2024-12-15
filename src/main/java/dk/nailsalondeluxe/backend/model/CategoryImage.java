@@ -1,39 +1,30 @@
 package dk.nailsalondeluxe.backend.model;
 
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class Treatment {
+public class CategoryImage {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String description;
-    private float price;
-    private int duration;
+    private String fileName;
+    private String mimeType;
+    private long lastModified;
+    @Column(columnDefinition = "mediumblob")
+    private byte[] imageData;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @OneToMany(mappedBy = "treatment", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Set<Reservation> reservations;
-
 }

@@ -14,42 +14,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dk.nailsalondeluxe.backend.model.Reservation;
-import dk.nailsalondeluxe.backend.repository.ReservationRepository;
+import dk.nailsalondeluxe.backend.service.ReservationService;
 
 @RestController
 @RequestMapping("/api/reservation")
 @CrossOrigin("*")
 public class ReservationRestController {
     
-    private ReservationRepository reservationRepository;
+    private ReservationService reservationService;
 
-    public ReservationRestController(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
+    public ReservationRestController(ReservationService reservationService) {
+        this.reservationService = reservationService;
     }
 
     @GetMapping
-    public List<Reservation> getAllCategories() {
-        return reservationRepository.findAll();
+    public List<Reservation> getAllReservations() {
+        return reservationService.getAllReservations();
     }
 
     @GetMapping("/{id}")
     public Optional<Reservation> getReservation(@PathVariable int id) {
-        return reservationRepository.findById(id);
+        return reservationService.getReservation(id);
     }
 
     @PostMapping
     public void createReservation(@RequestBody Reservation reservation) {
-        reservationRepository.save(reservation);
+        reservationService.createReservation(reservation);
     }
 
     @PutMapping("/{id}")
     public void updateReservation(@RequestBody Reservation reservation, @PathVariable int id) {
-        reservation.setId(id);
-        reservationRepository.save(reservation);
+        reservationService.updateReservation(reservation, id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteReservation(@PathVariable int id) {
-        reservationRepository.deleteById(id);
+        reservationService.deleteReservation(id);
     }
 }
