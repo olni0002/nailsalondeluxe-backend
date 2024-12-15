@@ -3,6 +3,9 @@ package dk.nailsalondeluxe.backend.controller;
 import java.util.List;
 import java.util.Optional;
 
+import dk.nailsalondeluxe.backend.service.TreaterService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +23,13 @@ import dk.nailsalondeluxe.backend.repository.TreaterRepository;
 @RequestMapping("/api/treater")
 @CrossOrigin("*")
 public class TreaterRestController {
-    
+
+    private TreaterService treaterService;
     private TreaterRepository treaterRepository;
 
-    public TreaterRestController(TreaterRepository treaterRepository) {
+    @Autowired
+    public TreaterRestController(TreaterService treaterService, TreaterRepository treaterRepository) {
+        this.treaterService = treaterService;
         this.treaterRepository = treaterRepository;
     }
 
@@ -51,5 +57,14 @@ public class TreaterRestController {
     @DeleteMapping("/{id}")
     public void deleteTreater(@PathVariable int id) {
         treaterRepository.deleteById(id);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Treater> login(@RequestBody Treater loginRequest) {
+        Treater treater = treaterService.authenticate(loginRequest.getName(), loginRequest.getPassword());
+        if (treater == null) {
+            return ResponseEntity.status(401).build();
+        }
+        return ResponseEntity.ok(treater);
     }
 }
