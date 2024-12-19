@@ -13,9 +13,11 @@ import org.springframework.util.ResourceUtils;
 
 import dk.nailsalondeluxe.backend.model.Category;
 import dk.nailsalondeluxe.backend.model.CategoryImage;
+import dk.nailsalondeluxe.backend.model.Treater;
 import dk.nailsalondeluxe.backend.model.Treatment;
 import dk.nailsalondeluxe.backend.repository.CategoryImageRepository;
 import dk.nailsalondeluxe.backend.repository.CategoryRepository;
+import dk.nailsalondeluxe.backend.repository.TreaterRepository;
 import dk.nailsalondeluxe.backend.repository.TreatmentRepository;
 
 @Component
@@ -24,14 +26,17 @@ public class InitData implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     private TreatmentRepository treatmentRepository;
     private CategoryImageRepository categoryImageRepository;
+    private TreaterRepository treaterRepository;
 
     public InitData(CategoryRepository categoryRepository,
                     TreatmentRepository treatmentRepository,
-                    CategoryImageRepository categoryImageRepository) {
+                    CategoryImageRepository categoryImageRepository,
+                    TreaterRepository treaterRepository) {
  
         this.categoryRepository = categoryRepository;
         this.treatmentRepository = treatmentRepository;
         this.categoryImageRepository = categoryImageRepository;
+        this.treaterRepository = treaterRepository;
     }
 
     @Override
@@ -45,6 +50,10 @@ public class InitData implements CommandLineRunner {
 
         CategoryImage[] images = getCategoryImages(categories);
         categoryImageRepository.saveAll(Arrays.asList(images));
+
+        Treater[] treaters = getTreaters();
+        treaterRepository.saveAll(Arrays.asList(treaters));
+
     }
     
     private Category[] getCategories() {
@@ -365,5 +374,26 @@ public class InitData implements CommandLineRunner {
         images[3].setCategory(categories[6]);
 
         return images;
+    }
+
+    private Treater[] getTreaters() {
+
+        int treaterAmount = 3;
+        Treater[] treaters = new Treater[treaterAmount];
+        
+        for (int i = 0; i < treaterAmount; i++) {
+            treaters[i] = new Treater();
+        }
+
+        treaters[0].setName("Bob");
+        treaters[0].setPassword("x");
+
+        treaters[1].setName("Carl");
+        treaters[1].setPassword("y");
+
+        treaters[2].setName("Mike");
+        treaters[2].setPassword("z");
+
+        return treaters;
     }
 }
